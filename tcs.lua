@@ -35,11 +35,11 @@
 --
 -- The program will automatically detect if theres a status key/value for your function so thats all you need to do.
 
-version = "1.2.2.1"
+version = "1.20.4"
 -- Version is used for the updater program i've made here: http://pastebin.com/jSWFQsA1
 
 mProt = "masterRC"
-rednet.open("right")
+rednet.open("left")
 -- mProt is the protocol the computer will be using. You can also configure what side the wireless modem is on
 
 pluginFolder = "mControlPlugins"

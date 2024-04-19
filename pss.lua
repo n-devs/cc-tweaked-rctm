@@ -3,7 +3,7 @@
 -- The purpose of this program is to be able to control other computers which are running http://pastebin.com/ss0BX2mM (which i have also made).
 -- if you don't know what to do there is a help list and you get it by simply typing "help" and that will list all of the available commands that you can run.
 
-version = "1.1.1"
+version = "1.20.4"
 -- Version is used for the updater program i've made here: http://pastebin.com/jSWFQsA1
 
 rednet.open("back")

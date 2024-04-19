@@ -39,7 +39,7 @@ version = "1.2.2.1"
 -- Version is used for the updater program i've made here: http://pastebin.com/jSWFQsA1
 
 mProt = "masterRC"
-rednet.open("right")
+rednet.open("back")
 -- mProt is the protocol the computer will be using. You can also configure what side the wireless modem is on
 
 pluginFolder = "mControlPlugins"

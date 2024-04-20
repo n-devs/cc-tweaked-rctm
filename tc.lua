@@ -1,3 +1,5 @@
+rednet.open("left")
+
 TITLE = {
     '  ##### ## ## ##### ##### ###   #####',
     '  ##### ## ## ##### ##### ###   #####',
@@ -398,62 +400,58 @@ function nameTurtle()
     end
 end
 
-function start()
-    rednet.open("left")
+-------------------------------------------+
 
-    nameTurtle()
-    userInit()
-    while true do
-        sendID, msg = rednet.receive(mProt)
 
-        if msg == "list" then
-            rednet.send(sendID, myFunction, mProt)
-            -- Will respond to computers that are running list unless running connect
-        elseif msg == "connect" then
-            rednet.send(sendID, { "Connected!", functions.status }, mProt)
-            -- Making the link from the mRemote program to the mControl program
+-------------------------------------------+
 
-            connected = true
+nameTurtle()
+userInit()
 
-            while connected do
-                invalid = true
-                connectID, msg = rednet.receive(mProt)
-                -- Getting the new message from the connected computer
+while true do
+    sendID, msg = rednet.receive(mProt)
 
-                if connectID == sendID then
-                    -- Comparing the connectID with the sendID to see if its the same id so no other computer can send messages
-                    if msg[1] ~= nil then
-                        msg[1] = msg[1]:lower()
-                    end
+    if msg == "list" then
+        rednet.send(sendID, myFunction, mProt)
+        -- Will respond to computers that are running list unless running connect
+    elseif msg == "connect" then
+        rednet.send(sendID, { "Connected!", functions.status }, mProt)
+        -- Making the link from the mRemote program to the mControl program
 
-                    if msg[1] == "exit" then
-                        rednet.send(connectID, "Disconnecting from current computer.", mProt)
+        connected = true
+
+        while connected do
+            invalid = true
+            connectID, msg = rednet.receive(mProt)
+            -- Getting the new message from the connected computer
+
+            if connectID == sendID then
+                -- Comparing the connectID with the sendID to see if its the same id so no other computer can send messages
+                if msg[1] ~= nil then
+                    msg[1] = msg[1]:lower()
+                end
+
+                if msg[1] == "exit" then
+                    rednet.send(connectID, "Disconnecting from current computer.", mProt)
+                    invalid = false
+                    connected = false
+                    -- Exits the connect cycle so that it will respond to list and for other computers to connect to it
+                end
+
+                for key, value in pairs(functions.functionTable) do
+                    if key == msg[1] then
                         invalid = false
-                        connected = false
-                        -- Exits the connect cycle so that it will respond to list and for other computers to connect to it
+                        table.remove(msg, 1)
+                        funcToRun = key
+                        parallel.waitForAny(callFunc, progRunning)
                     end
+                end
 
-                    for key, value in pairs(functions.functionTable) do
-                        if key == msg[1] then
-                            invalid = false
-                            table.remove(msg, 1)
-                            funcToRun = key
-                            parallel.waitForAny(callFunc, progRunning)
-                        end
-                    end
-
-                    if invalid then
-                        rednet.send(connectID, 'Invalid command. Type "help" for options.', mProt)
-                        -- Default path if msg[1] doesn't get caught by the for loop
-                    end
+                if invalid then
+                    rednet.send(connectID, 'Invalid command. Type "help" for options.', mProt)
+                    -- Default path if msg[1] doesn't get caught by the for loop
                 end
             end
         end
     end
 end
-
--------------------------------------------+
-
-
--------------------------------------------+
-start()

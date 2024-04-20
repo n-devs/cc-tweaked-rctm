@@ -200,37 +200,37 @@ functions = {
             if (item[1] == "forward") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move " .. item[1] .. " block " .. item[i] .. " to block " .. item[2],
+                    rednet.send(connectID, "ok! move " .. item[1] .. " to block " .. item[2],
                         mProt)
                 end
             elseif (item[1] == "up") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move " .. item[1] .. " block " .. item[i] .. " to block " .. item[2],
+                    rednet.send(connectID, "ok! move " .. item[1] .. " to block " .. item[2],
                         mProt)
                 end
             elseif (item[1] == "down") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move " .. item[1] .. " block " .. item[i] .. " to block " .. item[2],
+                    rednet.send(connectID, "ok! move " .. item[1] .. " to block " .. item[2],
                         mProt)
                 end
             elseif (item[1] == "back") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move " .. item[1] .. " block " .. item[i] .. " to block " .. item[2],
+                    rednet.send(connectID, "ok! move " .. item[1] .. " to block " .. item[2],
                         mProt)
                 end
             elseif (item[1] == "left") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move " .. item[1] .. " block " .. item[i] .. " to block " .. item[2],
+                    rednet.send(connectID, "ok! move " .. item[1] .. " to block " .. item[2],
                         mProt)
                 end
             elseif (item[1] == "right") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move " .. item[1] .. " block " .. item[i] .. " to block " .. item[2],
+                    rednet.send(connectID, "ok! move " .. item[1] .. " to block " .. item[2],
                         mProt)
                 end
             end
@@ -241,7 +241,7 @@ functions = {
                 MOVE.forward()
                 DIG.up()
                 DIG.down()
-                rednet.send(connectID, "ok! move dig block " .. item[i] .. " to block " .. item[1], mProt)
+                rednet.send(connectID, "ok! move dig to block " .. item[1], mProt)
             end
         end,
         position = function()

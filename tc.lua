@@ -399,6 +399,8 @@ function nameTurtle()
 end
 
 function start()
+    rednet.open("left")
+
     nameTurtle()
     userInit()
     while true do

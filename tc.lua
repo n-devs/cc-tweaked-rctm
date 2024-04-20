@@ -67,6 +67,60 @@ ATTACK = {
     down    = turtle.attackDown
 }
 -------------------------------------------+
+VOWELS = {
+    'a', 'a', 'a', 'a', 'a',
+    'e', 'e', 'e', 'e', 'e', 'e',
+    'i', 'i', 'i',
+    'o', 'o', 'o',
+    'u', 'u',
+    'y',
+}
+CONSONANTS = {
+    'b', 'b', 'b', 'b', 'b', 'b', 'b',
+    'c', 'c', 'c', 'c', 'c', 'c', 'c',
+    'd', 'd', 'd', 'd', 'd',
+    'f', 'f', 'f', 'f', 'f',
+    'g', 'g', 'g', 'g',
+    'h', 'h', 'h',
+    'j',
+    'k', 'k',
+    'l', 'l', 'l', 'l', 'l',
+    'm', 'm', 'm', 'm', 'm', 'm', 'm',
+    'n', 'n', 'n', 'n', 'n', 'n', 'n',
+    'p', 'p', 'p', 'p', 'p',
+    'r', 'r', 'r', 'r', 'r', 'r', 'r',
+    's', 's', 's', 's', 's', 's', 's', 's', 's',
+    't', 't', 't', 't', 't', 't', 't',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z', 'z', 'z',
+}
+DOUBLES = {
+    'bl', 'br', 'bw',
+    'cr', 'cl',
+    'dr', 'dw',
+    'fr', 'fl', 'fw',
+    'gr', 'gl', 'gw', 'gh',
+    'kr', 'kl', 'kw',
+    'mw',
+    'ng',
+    'pr', 'pl',
+    'qu',
+    'sr', 'sl', 'sw', 'st', 'sh',
+    'tr', 'tl', 'tw', 'th',
+    'vr', 'vl',
+    'wr',
+}
+CONS_DOUB = {}
+for _, c in pairs(CONSONANTS) do
+    table.insert(CONS_DOUB, c)
+end
+for _, c in pairs(DOUBLES) do
+    table.insert(CONS_DOUB, c)
+end
+-------------------------------------------+
 functions = {
     status = { upload = 1, download = 1, ls = 1, redstone = 1, move = 1, dig = 1, position = 1, battery = 1 },
     helpTable = {

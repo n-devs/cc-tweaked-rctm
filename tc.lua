@@ -122,7 +122,7 @@ for _, c in pairs(DOUBLES) do
 end
 -------------------------------------------+
 functions = {
-    status = { upload = 1, download = 1, ls = 1, redstone = 1, move = 1, dig = 1, position = 1, battery = 1 },
+    status = { upload = 1, download = 1, ls = 1, redstone = 1, move = 1, dig = 1, position = 1},
     helpTable = {
         upload = "upload a file to connected computer",
         download = "download a file from connected computer",
@@ -130,8 +130,7 @@ functions = {
         redstone = "control sides of connected computer to emit redstone on",
         move = "move <forward> <number>",
         dig = "dig <number>",
-        position = "position status",
-        battery = "battery status"
+        position = "position status"
     },
     functionTable = {
         help = function()
@@ -198,6 +197,7 @@ functions = {
             -- Error messages to catch every combination
         end,
         move = function(item)
+            rednet.send(connectID, "ok! move ".. item[1] .. " ".. item[2] .. "block" , mProt)
             if (item[1] == "forward") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
@@ -225,6 +225,7 @@ functions = {
             end
         end,
         dig = function(item)
+            rednet.send(connectID, "ok! dig ".. item[1] .. " ".. item[2] .. "block" , mProt)
             for i = 1, item[1] do
                 DIG.forward()
                 MOVE.forward()
@@ -233,10 +234,8 @@ functions = {
             end
         end,
         position = function()
-            shell.run("gps", "locale")
-        end,
-        battery = function()
-            manualRefuel(START_FUEL)
+           local position = shell.run("gps", "locale")
+           rednet.send(connectID, position , mProt)
         end
     }
 }

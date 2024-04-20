@@ -67,115 +67,6 @@ ATTACK = {
     down    = turtle.attackDown
 }
 -------------------------------------------+
--- ============================ Plugin handling below =============================
-
-local args = { ... }
-
-if args[1] then
-    pluginFolder = args[1] .. "/" .. pluginFolder
-end
--- Seeing if when running the program you have specified a folder in the arguments
-
-tablesToMerge = { "status", "helpTable", "functionTable" }
--- Defining what tables are okay to merge with the plugin's table
-
-function mergeTable(mergeTab, tabName)
-    for key, value in pairs(mergeTab) do
-        functions[tabName][key:lower()] = value
-    end
-end
-
--- Function for merging 2 tables
-
-if not fs.exists(pluginFolder) then
-    fs.makeDir(pluginFolder)
-end
--- Checking if the plugin folder is a directory yet or not and if its not then it creates it
-
-pluginFiles = fs.list(pluginFolder)
-
-for i = 1, #pluginFiles do
-    if not fs.isDir(pluginFolder .. pluginFiles[i]) then
-        os.loadAPI(pluginFolder .. "/" .. pluginFiles[i])
-
-        for j = 1, #tablesToMerge do
-            if _G[pluginFiles[i]][tablesToMerge[j]] then
-                mergeTable(_G[pluginFiles[i]][tablesToMerge[j]], tablesToMerge[j])
-            end
-        end
-    end
-end
--- Merging the existing table with the plugin's table
-
--------------------------------------------+
--- ========================== Help string handling below ==========================
-
-help = "exit - Disconnects from current connected computer\n"
-
-for program, progHelp in pairs(functions.helpTable) do
-    if functions.status[program] == 1 then
-        help = help .. program .. " - " .. progHelp .. "\n"
-    end
-end
-
-help = help:sub(1, string.len(help) - 1)
--- Creates the help variable from the programs that are active
--------------------------------------------+
--- ====================== Putting everything together below =======================
-
-function progRunning()
-    local terminate = false
-    -- Declaring the terminate variable as false
-
-    repeat
-        local ID, newMsg = rednet.receive(mProt)
-        -- Getting the connected computer's messages
-
-        if ID == sendID and connected then
-            -- Checking if the computer that sent the message is the connected computer aswell as seeing if the connected variable is still true
-
-            local newMsgIsWord = newMsg ~= ""
-            -- Checking if the incoming message is a word or not
-
-            if newMsgIsWord and newMsg[1]:lower() == "terminate" then
-                terminate = true
-                rednet.send(ID, "Terminated " .. funcToRun .. ".", mProt)
-                -- Seeing if the connected computer has sent "terminate" through and setting the terminate variable to true if they have
-            elseif newMsgIsWord and newMsg[1]:lower() == "exit" then
-                connected = false
-                rednet.send(ID, "Disconnecting from current computer but continuing to run " .. funcToRun .. ".", mProt)
-                -- Still executing current function even if connected computer has exitted
-            elseif newMsgIsWord and newMsg[1]:lower() == "fuel" and turtle then
-                rednet.send(ID, "Fuel level currently at: " .. turtle.getFuelLevel(), mProt)
-                -- Sending the current fuel level through to the connected computer
-            else
-                local sendMessage = "Currently executing " ..
-                    funcToRun ..
-                    ". Available commands are -\nterminate: terminate current function\nexit: continue to run function but disconnect."
-                -- Defining the message variable to send
-
-                if turtle and turtle.getFuelLevel() ~= "unlimited" then
-                    sendMessage = sendMessage .. "\nfuel: get the fuel level"
-                end
-                -- Adding fuel to the help if the connected computer is a turtle
-
-                rednet.send(ID, sendMessage, mProt)
-                -- Responding to the user if they send a message
-            end
-        end
-    until terminate
-    -- Runs until the terminate variable is true
-end
-
--- Function to respond to the connected computer while the local computer is running a function
-function callFunc()
-    functions.functionTable[funcToRun](msg, connectID, mProt)
-end
-
--- Function for calling the correct function
-
--------------------------------------------+
-
 functions = {
     status = { upload = 1, download = 1, ls = 1, redstone = 1, move = 1, dig = 1, position = 1, battery = 1 },
     helpTable = {
@@ -296,6 +187,116 @@ functions = {
     }
 }
 -------------------------------------------+
+-- ============================ Plugin handling below =============================
+
+local args = { ... }
+
+if args[1] then
+    pluginFolder = args[1] .. "/" .. pluginFolder
+end
+-- Seeing if when running the program you have specified a folder in the arguments
+
+tablesToMerge = { "status", "helpTable", "functionTable" }
+-- Defining what tables are okay to merge with the plugin's table
+
+function mergeTable(mergeTab, tabName)
+    for key, value in pairs(mergeTab) do
+        functions[tabName][key:lower()] = value
+    end
+end
+
+-- Function for merging 2 tables
+
+if not fs.exists(pluginFolder) then
+    fs.makeDir(pluginFolder)
+end
+-- Checking if the plugin folder is a directory yet or not and if its not then it creates it
+
+pluginFiles = fs.list(pluginFolder)
+
+for i = 1, #pluginFiles do
+    if not fs.isDir(pluginFolder .. pluginFiles[i]) then
+        os.loadAPI(pluginFolder .. "/" .. pluginFiles[i])
+
+        for j = 1, #tablesToMerge do
+            if _G[pluginFiles[i]][tablesToMerge[j]] then
+                mergeTable(_G[pluginFiles[i]][tablesToMerge[j]], tablesToMerge[j])
+            end
+        end
+    end
+end
+-- Merging the existing table with the plugin's table
+
+-------------------------------------------+
+-- ========================== Help string handling below ==========================
+
+help = "exit - Disconnects from current connected computer\n"
+
+for program, progHelp in pairs(functions.helpTable) do
+    if functions.status[program] == 1 then
+        help = help .. program .. " - " .. progHelp .. "\n"
+    end
+end
+
+help = help:sub(1, string.len(help) - 1)
+-- Creates the help variable from the programs that are active
+-------------------------------------------+
+-- ====================== Putting everything together below =======================
+
+function progRunning()
+    local terminate = false
+    -- Declaring the terminate variable as false
+
+    repeat
+        local ID, newMsg = rednet.receive(mProt)
+        -- Getting the connected computer's messages
+
+        if ID == sendID and connected then
+            -- Checking if the computer that sent the message is the connected computer aswell as seeing if the connected variable is still true
+
+            local newMsgIsWord = newMsg ~= ""
+            -- Checking if the incoming message is a word or not
+
+            if newMsgIsWord and newMsg[1]:lower() == "terminate" then
+                terminate = true
+                rednet.send(ID, "Terminated " .. funcToRun .. ".", mProt)
+                -- Seeing if the connected computer has sent "terminate" through and setting the terminate variable to true if they have
+            elseif newMsgIsWord and newMsg[1]:lower() == "exit" then
+                connected = false
+                rednet.send(ID, "Disconnecting from current computer but continuing to run " .. funcToRun .. ".", mProt)
+                -- Still executing current function even if connected computer has exitted
+            elseif newMsgIsWord and newMsg[1]:lower() == "fuel" and turtle then
+                rednet.send(ID, "Fuel level currently at: " .. turtle.getFuelLevel(), mProt)
+                -- Sending the current fuel level through to the connected computer
+            else
+                local sendMessage = "Currently executing " ..
+                    funcToRun ..
+                    ". Available commands are -\nterminate: terminate current function\nexit: continue to run function but disconnect."
+                -- Defining the message variable to send
+
+                if turtle and turtle.getFuelLevel() ~= "unlimited" then
+                    sendMessage = sendMessage .. "\nfuel: get the fuel level"
+                end
+                -- Adding fuel to the help if the connected computer is a turtle
+
+                rednet.send(ID, sendMessage, mProt)
+                -- Responding to the user if they send a message
+            end
+        end
+    until terminate
+    -- Runs until the terminate variable is true
+end
+
+-- Function to respond to the connected computer while the local computer is running a function
+function callFunc()
+    functions.functionTable[funcToRun](msg, connectID, mProt)
+end
+
+-- Function for calling the correct function
+
+-------------------------------------------+
+
+
 
 function manualRefuel(desired_level)
     print('Please insert coal...')

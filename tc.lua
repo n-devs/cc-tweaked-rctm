@@ -479,9 +479,6 @@ end
 
 -------------------------------------------+
 
-nameTurtle()
-userInit()
-
 while true do
     sendID, msg = rednet.receive(mProt)
 
@@ -493,7 +490,8 @@ while true do
         -- Making the link from the mRemote program to the mControl program
 
         connected = true
-
+        nameTurtle()
+        userInit()
         while connected do
             invalid = true
             connectID, msg = rednet.receive(mProt)

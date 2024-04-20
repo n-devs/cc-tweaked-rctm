@@ -395,6 +395,25 @@ function userInit()
     term.setCursorPos(1, 1)
 end
 
+function genRandName()
+    local name = ''
+    local count = math.random(3, 6)
+
+    for i = 0, count - 1 do
+        if i % 2 == 1 then
+            name = name .. VOWELS[math.random(#VOWELS)]
+        else
+            if (i == count - 1) then
+                name = name .. CONSONANTS[math.random(#CONSONANTS)]
+            else
+                name = name .. CONS_DOUB[math.random(#CONS_DOUB)]
+            end
+        end
+    end
+
+    return string.upper(name:sub(1, 1)) .. name:sub(2, -1)
+end
+
 function nameTurtle()
     if not os.getComputerLabel() then
         os.setComputerLabel(genRandName())

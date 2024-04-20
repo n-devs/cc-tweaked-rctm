@@ -235,13 +235,76 @@ functions = {
             end
         end,
         dig = function(item)
-            for i = 1, item[1] do
-                DIG.forward()
-                MOVE.forward()
-                DIG.up()
-                DIG.down()
-                rednet.send(connectID, "ok! move dig to block " .. item[1], mProt)
+            if( item[1] == "forward") then
+                rednet.send(connectID, "start move dig forward to " .. item[2].." block", mProt)
+                for i = 1, item[2] do
+                    DIG.forward()
+                    MOVE.forward()
+                    DIG.up()
+                    DIG.down()
+                end
+                rednet.send(connectID, "end move dig forward to " .. item[2].." block", mProt)
+            elseif( item[1] == "up") then
+                rednet.send(connectID, "start move dig up to " .. item[2].." block", mProt)
+                for i = 1, item[2] do
+                  
+                    DIG.up()
+                    MOVE.up()
+                end
+                rednet.send(connectID, "start move dig up to " .. item[2].." block", mProt)
+            elseif( item[1] == "down") then
+                rednet.send(connectID, "start move dig down to " .. item[2].." block", mProt)
+                for i = 1, item[2] do
+                  
+                    DIG.down()
+                    MOVE.down()
+                end
+                rednet.send(connectID, "start move dig down to " .. item[2].." block", mProt)
+            elseif( item[1] == "ffa") then
+                rednet.send(connectID, "start move dig forward flow a to " .. item[2].." block", mProt)
+                for i = 1, item[2] do
+                  
+                    DIG.forward()
+                    MOVE.forward()
+                    DIG.up()
+                    DIG.down()
+
+                    MOVE.left()
+
+                    DIG.forward()
+                    MOVE.forward()
+                    DIG.up()
+                    DIG.down()
+
+                    DIG.forward()
+                    MOVE.forward()
+                    DIG.up()
+                    DIG.down()
+
+                    MOVE.back()
+                    MOVE.back()
+
+                    MOVE.right()
+                    MOVE.right()
+
+                    DIG.forward()
+                    MOVE.forward()
+                    DIG.up()
+                    DIG.down()
+
+                    DIG.forward()
+                    MOVE.forward()
+                    DIG.up()
+                    DIG.down()
+
+                    MOVE.back()
+                    MOVE.back()
+
+                    MOVE.left()
+                end
+                rednet.send(connectID, "start move dig forward flow a to " .. item[2].." block", mProt)
             end
+            
         end
     }
 }

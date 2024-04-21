@@ -122,7 +122,7 @@ for _, c in pairs(DOUBLES) do
 end
 -------------------------------------------+
 functions = {
-    status = { upload = 1, download = 1, ls = 1, redstone = 1, mv = 1, dig = 1,battery = 1 },
+    status = { upload = 1, download = 1, ls = 1, redstone = 1, mv = 1, dig = 1, battery = 1, gps = 1 },
     helpTable = {
         upload = "upload a file to connected computer",
         download = "download a file from connected computer",
@@ -130,7 +130,8 @@ functions = {
         redstone = "control sides of connected computer to emit redstone on",
         mv = "mv <forward> <number>",
         dig = "dig <number>",
-        battery = 'battery status'
+        battery = 'battery status',
+        gps = 'gps <status>'
     },
     functionTable = {
         help = function()
@@ -409,11 +410,17 @@ functions = {
                 rednet.send(connectID, "start move dig forward down to " .. item[2] .. " block", mProt)
             end
         end,
-        battery= function ()
+        battery = function()
             local cursor_x, cursor_y = term.getCursorPos()
             local current_level = turtle.getFuelLevel()
 
-            rednet.send(connectID, 'battery status '..tostring(current_level)..'/'..tostring(START_FUEL)..'', mProt)
+            rednet.send(connectID, 'battery status ' .. tostring(current_level) .. '/' .. tostring(START_FUEL) .. '',
+                mProt)
+        end,
+        gps = function(item)
+            if (item[1] == "status") then
+                rednet.send(connectID, '' .. tostring(gps.locate(2, true)) .. '', mProt)
+            end
         end
     }
 }

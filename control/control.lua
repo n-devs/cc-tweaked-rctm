@@ -419,7 +419,8 @@ functions = {
         end,
         gps = function(item)
             if (item[1] == "status") then
-                rednet.send(connectID, '' .. tostring(gps.locate(2, true)) .. '', mProt)
+                x, y, z = gps.locate(2, true)
+                rednet.send(connectID, "Position is " .. x .. "," .. y .. "," .. z.. '', mProt)
             end
         end
     }

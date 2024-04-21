@@ -128,10 +128,10 @@ functions = {
         download = "download a file from connected computer",
         ls = "list files on connected computer",
         redstone = "control sides of connected computer to emit redstone on",
-        mv = "mv <forward> <number>",
+        mv = "mv <options> <number>",
         dig = "dig <number>",
-        battery = 'battery status',
-        gps = 'gps <status>'
+        battery = 'battery <options>',
+        gps = 'gps <options>'
     },
     functionTable = {
         help = function()
@@ -404,11 +404,16 @@ functions = {
                 rednet.send(connectID, "start move dig forward down to " .. item[2] .. " block", mProt)
             end
         end,
-        battery = function()
-            local current_level = turtle.getFuelLevel()
-
-            rednet.send(connectID, 'battery status ' .. tostring(current_level) .. '/' .. tostring(START_FUEL) .. '',
-                mProt)
+        battery = function(item)
+            if (item[1] == "s") then
+               
+                rednet.send(connectID, 'battery status ' .. tostring(turtle.getFuelLevel()) .. '/' .. tostring(START_FUEL) .. '',
+                    mProt)
+            elseif (item[1] == "c") then
+                manualRefuel(START_FUEL)
+                rednet.send(connectID, 'battery status ' .. tostring(turtle.getFuelLevel()) .. '/' .. tostring(START_FUEL) .. '',
+                    mProt)
+            end
         end,
         gps = function(item)
             if (item[1] == "status") then

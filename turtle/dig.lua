@@ -157,7 +157,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.digUp()
             turtle.digDown()
 
-            turtle.left()
+            turtle.turnLeft()
 
             turtle.dig()
             turtle.forward()
@@ -166,8 +166,8 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
 
             turtle.back()
 
-            turtle.right()
-            turtle.right()
+            turtle.turnRight()
+            turtle.turnRight()
 
             turtle.dig()
             turtle.forward()
@@ -176,7 +176,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
 
             turtle.back()
 
-            turtle.left()
+            turtle.turnLeft()
         end
     elseif (arg[1] == "f_3x5") then
         for i = 1, arg[2] do
@@ -185,7 +185,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.digUp()
             turtle.digDown()
 
-            turtle.left()
+            turtle.turnLeft()
 
             turtle.dig()
             turtle.forward()
@@ -200,8 +200,8 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.back()
             turtle.back()
 
-            turtle.right()
-            turtle.right()
+            turtle.turnRight()
+            turtle.turnRight()
 
             turtle.dig()
             turtle.forward()
@@ -216,7 +216,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.back()
             turtle.back()
 
-            turtle.left()
+            turtle.turnLeft()
         end
     elseif (arg[1] == "fu_3x3") then
         for i = 1, arg[2] do
@@ -225,7 +225,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.digUp()
             turtle.digDown()
 
-            turtle.left()
+            turtle.turnLeft()
 
             turtle.dig()
             turtle.forward()
@@ -234,8 +234,8 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
 
             turtle.back()
 
-            turtle.right()
-            turtle.right()
+            turtle.turnRight()
+            turtle.turnRight()
 
             turtle.dig()
             turtle.forward()
@@ -252,7 +252,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.digUp()
 
             turtle.forward()
-            turtle.left()
+            turtle.turnLeft()
         end
     elseif (arg[1] == "fd_3x3") then
         for i = 1, arg[2] do
@@ -261,7 +261,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.digUp()
             turtle.digDown()
 
-            turtle.left()
+            turtle.turnLeft()
 
             turtle.dig()
             turtle.forward()
@@ -270,8 +270,8 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
 
             turtle.back()
 
-            turtle.right()
-            turtle.right()
+            turtle.turnRight()
+            turtle.turnRight()
 
             turtle.dig()
             turtle.forward()
@@ -288,7 +288,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.digDown()
 
             turtle.forward()
-            turtle.left()
+            turtle.turnLeft()
         end
     end
 end

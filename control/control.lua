@@ -200,7 +200,7 @@ functions = {
         mv = function(item)
             if (item[1] == "forward" or item[1] == "f") then
                 for i = 1, item[2] do
-                    MOVE[item[1]]()
+                    MOVE.forward()
                     rednet.send(connectID, "ok! move forward to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "up" or item[1] == "u") then

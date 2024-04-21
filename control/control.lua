@@ -122,13 +122,13 @@ for _, c in pairs(DOUBLES) do
 end
 -------------------------------------------+
 functions = {
-    status = { upload = 1, download = 1, ls = 1, redstone = 1, move = 1, dig = 1 },
+    status = { upload = 1, download = 1, ls = 1, redstone = 1, mv = 1, dig = 1 },
     helpTable = {
         upload = "upload a file to connected computer",
         download = "download a file from connected computer",
         ls = "list files on connected computer",
         redstone = "control sides of connected computer to emit redstone on",
-        move = "move <forward> <number>",
+        mv = "mv <forward> <number>",
         dig = "dig <number>"
     },
     functionTable = {
@@ -258,7 +258,37 @@ functions = {
                     MOVE.down()
                 end
                 rednet.send(connectID, "start move dig down to " .. item[2] .. " block", mProt)
-            elseif (item[1] == "ff") then
+            elseif (item[1] == "f_3x3") then
+                rednet.send(connectID, "start move dig forward flow to " .. item[2] .. " block", mProt)
+                for i = 1, item[2] do
+                    DIG.forward()
+                    MOVE.forward()
+                    DIG.up()
+                    DIG.down()
+
+                    MOVE.left()
+
+                    DIG.forward()
+                    MOVE.forward()
+                    DIG.up()
+                    DIG.down()
+
+                    MOVE.back()
+
+                    MOVE.right()
+                    MOVE.right()
+
+                    DIG.forward()
+                    MOVE.forward()
+                    DIG.up()
+                    DIG.down()
+
+                    MOVE.back()
+
+                    MOVE.left()
+                end
+                rednet.send(connectID, "start move dig forward flow to " .. item[2] .. " block", mProt)
+            elseif (item[1] == "f_3x5") then
                 rednet.send(connectID, "start move dig forward flow to " .. item[2] .. " block", mProt)
                 for i = 1, item[2] do
                     DIG.forward()
@@ -300,7 +330,7 @@ functions = {
                     MOVE.left()
                 end
                 rednet.send(connectID, "start move dig forward flow to " .. item[2] .. " block", mProt)
-            elseif (item[1] == "fu") then
+            elseif (item[1] == "fu_3x3") then
                 rednet.send(connectID, "start move dig forward up to " .. item[2] .. " block", mProt)
                 for i = 1, item[2] do
                     DIG.forward()
@@ -338,7 +368,7 @@ functions = {
                     MOVE.left()
                 end
                 rednet.send(connectID, "start move dig forward up to " .. item[2] .. " block", mProt)
-            elseif (item[1] == "fd") then
+            elseif (item[1] == "fd_3x3") then
                 rednet.send(connectID, "start move dig forward down to " .. item[2] .. " block", mProt)
                 for i = 1, item[2] do
                     DIG.forward()

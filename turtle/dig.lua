@@ -78,8 +78,8 @@ function manualRefuel(desired_level)
 
     while current_level < desired_level do
         for i = 1, 16 do
-            local item = turtle.getItemDetail(slot)
-            if item and item.name == 'minecraft:coal' or item.name == "minecraft:charcoal" then
+            local arg = turtle.getargDetail(slot)
+            if arg and arg.name == 'minecraft:coal' or arg.name == "minecraft:charcoal" then
                 turtle.select(slot)
                 if turtle.refuel(5) then break end
             end
@@ -134,24 +134,24 @@ local programName = arg[0] or fs.getName(shell.getRunningProgram())
 if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())) then
     userInit()
     if (arg[1] == "f") then
-        for i = 1, item[2] do
+        for i = 1, arg[2] do
             turtle.dig()
             turtle.forward()
             turtle.digUp()
             turtle.digDown()
         end
     elseif (arg[1] == "d") then
-        for i = 1, item[2] do
+        for i = 1, arg[2] do
             turtle.digDown()
             turtle.down()
         end
     elseif (arg[1] == "u") then
-        for i = 1, item[2] do
+        for i = 1, arg[2] do
             turtle.digUp()
             turtle.up()
         end
     elseif (arg[1] == "f_3x3") then
-        for i = 1, item[2] do
+        for i = 1, arg[2] do
             turtle.dig()
             turtle.forward()
             turtle.digUp()
@@ -179,7 +179,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.left()
         end
     elseif (arg[1] == "f_3x5") then
-        for i = 1, item[2] do
+        for i = 1, arg[2] do
             turtle.dig()
             turtle.forward()
             turtle.digUp()
@@ -219,7 +219,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.left()
         end
     elseif (arg[1] == "fu_3x3") then
-        for i = 1, item[2] do
+        for i = 1, arg[2] do
             turtle.dig()
             turtle.forward()
             turtle.digUp()
@@ -255,7 +255,7 @@ if (programName == "dig" or programName == fs.getName(shell.getRunningProgram())
             turtle.left()
         end
     elseif (arg[1] == "fd_3x3") then
-        for i = 1, item[2] do
+        for i = 1, arg[2] do
             turtle.dig()
             turtle.forward()
             turtle.digUp()

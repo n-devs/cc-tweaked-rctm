@@ -201,38 +201,32 @@ functions = {
             if (item[1] == "forward" or item[1] == "f") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move forward to block " .. item[2],
-                        mProt)
+                    rednet.send(connectID, "ok! move forward to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "up" or item[1] == "u") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move up to block " .. item[2],
-                        mProt)
+                    rednet.send(connectID, "ok! move up to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "down" or item[1] == "d") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move down to block " .. item[2],
-                        mProt)
+                    rednet.send(connectID, "ok! move down to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "back" or item[1] == "b") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move back to block " .. item[2],
-                        mProt)
+                    rednet.send(connectID, "ok! move back to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "left" or item[1] == "l") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move left to block " .. item[2],
-                        mProt)
+                    rednet.send(connectID, "ok! move left to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "right" or item[1] == "r") then
                 for i = 1, item[2] do
                     MOVE[item[1]]()
-                    rednet.send(connectID, "ok! move right to block " .. item[2],
-                        mProt)
+                    rednet.send(connectID, "ok! move right to block " .. item[2] .. "", mProt)
                 end
             end
         end,
@@ -411,7 +405,6 @@ functions = {
             end
         end,
         battery = function()
-            local cursor_x, cursor_y = term.getCursorPos()
             local current_level = turtle.getFuelLevel()
 
             rednet.send(connectID, 'battery status ' .. tostring(current_level) .. '/' .. tostring(START_FUEL) .. '',
@@ -420,7 +413,7 @@ functions = {
         gps = function(item)
             if (item[1] == "status") then
                 x, y, z = gps.locate(2, true)
-                rednet.send(connectID, "Position is " .. x .. "," .. y .. "," .. z.. '', mProt)
+                rednet.send(connectID, "Position is " .. x .. "," .. y .. "," .. z .. '', mProt)
             end
         end
     }

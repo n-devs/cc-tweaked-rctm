@@ -78,7 +78,7 @@ function manualRefuel(desired_level)
 
     while current_level < desired_level do
         for i = 1, 16 do
-            local arg = turtle.getargDetail(slot)
+            local arg = turtle.getItemDetail(slot)
             if arg and arg.name == 'minecraft:coal' or arg.name == "minecraft:charcoal" then
                 turtle.select(slot)
                 if turtle.refuel(5) then break end

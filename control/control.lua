@@ -205,27 +205,27 @@ functions = {
                 end
             elseif (item[1] == "up" or item[1] == "u") then
                 for i = 1, item[2] do
-                    MOVE[item[1]]()
+                    MOVE.up()
                     rednet.send(connectID, "ok! move up to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "down" or item[1] == "d") then
                 for i = 1, item[2] do
-                    MOVE[item[1]]()
+                    MOVE.down()
                     rednet.send(connectID, "ok! move down to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "back" or item[1] == "b") then
                 for i = 1, item[2] do
-                    MOVE[item[1]]()
+                    MOVE.back()
                     rednet.send(connectID, "ok! move back to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "left" or item[1] == "l") then
                 for i = 1, item[2] do
-                    MOVE[item[1]]()
+                    MOVE.left()
                     rednet.send(connectID, "ok! move left to block " .. item[2] .. "", mProt)
                 end
             elseif (item[1] == "right" or item[1] == "r") then
                 for i = 1, item[2] do
-                    MOVE[item[1]]()
+                    MOVE.right()
                     rednet.send(connectID, "ok! move right to block " .. item[2] .. "", mProt)
                 end
             end
